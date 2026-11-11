@@ -1,6 +1,6 @@
 # Meteo UAV
 
-Previsión meteorológica para volar drones y aeromodelos. Es una alternativa gratuita a UAV Forecast: no tiene publicidad, no pide registro y funciona en el móvil y en el PC.
+Previsión meteorológica gratuita para volar drones y aeromodelos: sin publicidad, sin registro, y funciona en el móvil y en el PC.
 
 **Abrir la app:** https://piticho.github.io/meteo-uav/
 
@@ -40,7 +40,7 @@ Es una herramienta informativa. La referencia oficial de zonas es ENAIRE Drones,
 
 ## English
 
-Weather forecast for flying drones and model aircraft. It is a free alternative to UAV Forecast, with no ads and no sign-up.
+Free weather forecast for flying drones and model aircraft, with no ads and no sign-up.
 
 **Open the app:** https://piticho.github.io/meteo-uav/
 
