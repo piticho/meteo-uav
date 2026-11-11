@@ -101,6 +101,8 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 .toast.show{opacity:1}
 .hidden{display:none!important}
 footer{max-width:980px;margin:0 auto;padding:4px 12px 30px;font-size:12px;color:var(--muted)}
+.fb{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+footer .fb a{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--text);background:var(--card);font-size:13px}
 footer a{color:inherit}
 a{color:var(--accent)}
 .leaflet-popup-content{font-size:13px;max-height:260px;overflow:auto}
@@ -272,7 +274,7 @@ a{color:var(--accent)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
 <script>
 "use strict";
-const VERSION = "1.8";
+const VERSION = "1.9";
 const droneSvg = s => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="5" cy="5" r="3"/><circle cx="19" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><path d="M7.2 7.2l2.8 2.8M16.8 7.2L14 10M7.2 16.8L10 14M16.8 16.8L14 14"/><rect x="9.5" y="9.5" width="5" height="5" rx="1.2" fill="currentColor"/></svg>`;
 /* ============ utilidades ============ */
 const $ = s => document.querySelector(s);
@@ -306,7 +308,7 @@ es:{
   satNote:"Marca las constelaciones que usa tu receptor. Se cuentan los satélites por encima de esa elevación (sin tener en cuenta edificios ni montes). GPS y GLONASS usan las listas de satélites operativos de CelesTrak; las de Galileo y BeiDou pueden incluir satélites que no estén en servicio, así que esos recuentos son aproximados.",
   aircraftLimits:"Aparatos y límites", aircraftNote:"Los valores de ejemplo son orientativos: ajústalos a tu aparato y a tu experiencia. Se guardan solo en este navegador.",
   addAircraft:"+ Añadir aparato", share:"Compartir", shareNote:"Copia un enlace que abre la app directamente en la ubicación actual.", shareBtn:"Copiar enlace a este sitio",
-  footer:'Meteo UAV v{v} · Fuentes: previsión <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0) · índice Kp <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA SWPC</a> · órbitas <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a> · zonas UAS <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> · mapa y ortofoto © <a href="https://www.ign.es/" target="_blank" rel="noopener">IGN</a>, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Herramienta informativa: la decisión de volar y el cumplimiento de la normativa son responsabilidad del piloto.',
+  footer:'<span class="fb"><a href="https://github.com/piticho/meteo-uav" target="_blank" rel="noopener">⭐ Dale una estrella en GitHub</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSdbKKGQpp95phzWRvtR1RsX-bzu9wl9WQBLEYXG8_vVTcPxWw/viewform" target="_blank" rel="noopener">💬 Envía tu opinión</a></span>Meteo UAV v{v} · Fuentes: previsión <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0) · índice Kp <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA SWPC</a> · órbitas <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a> · zonas UAS <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> · mapa y ortofoto © <a href="https://www.ign.es/" target="_blank" rel="noopener">IGN</a>, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Herramienta informativa: la decisión de volar y el cumplimiento de la normativa son responsabilidad del piloto.',
   location:"Ubicación", searchPh:"Pueblo, ciudad o lugar…", search:"Buscar", dMyPos:"📡 Mi posición", dMap:"🗺 Elegir en el mapa", dFav:"☆ Guardar actual", favorites:"Favoritos", close:"Cerrar",
   // dinámicos
   loading:"Cargando datos…", queryingEnaire:"Consultando ENAIRE…", calcSats:"Calculando satélites…", now:"Ahora",
@@ -371,7 +373,7 @@ en:{
   satNote:"Tick the constellations your receiver uses. Satellites above that elevation are counted (buildings and hills are not taken into account). GPS and GLONASS use CelesTrak's operational lists; the Galileo and BeiDou lists may include satellites that are not in service, so those counts are approximate.",
   aircraftLimits:"Aircraft and limits", aircraftNote:"The example values are only a starting point: adjust them to your aircraft and your experience. They are stored in this browser only.",
   addAircraft:"+ Add aircraft", share:"Share", shareNote:"Copy a link that opens the app directly at the current location.", shareBtn:"Copy link to this place",
-  footer:'Meteo UAV v{v} · Sources: forecast <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0) · Kp index <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA SWPC</a> · orbits <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a> · UAS zones <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> · map and imagery © <a href="https://www.ign.es/" target="_blank" rel="noopener">IGN</a>, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Information tool: the decision to fly and compliance with the rules are the pilot\'s responsibility.',
+  footer:'<span class="fb"><a href="https://github.com/piticho/meteo-uav" target="_blank" rel="noopener">⭐ Star it on GitHub</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSdbKKGQpp95phzWRvtR1RsX-bzu9wl9WQBLEYXG8_vVTcPxWw/viewform" target="_blank" rel="noopener">💬 Send feedback</a></span>Meteo UAV v{v} · Sources: forecast <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0) · Kp index <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA SWPC</a> · orbits <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a> · UAS zones <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> · map and imagery © <a href="https://www.ign.es/" target="_blank" rel="noopener">IGN</a>, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Information tool: the decision to fly and compliance with the rules are the pilot\'s responsibility.',
   location:"Location", searchPh:"Town, city or place…", search:"Search", dMyPos:"📡 My position", dMap:"🗺 Pick on the map", dFav:"☆ Save current", favorites:"Favourites", close:"Close",
   loading:"Loading data…", queryingEnaire:"Querying ENAIRE…", calcSats:"Calculating satellites…", now:"Now",
   vGo:"Good conditions", vWarn:"Caution", vNogo:"Better not fly", allWithin:"Everything within the limits of “{p}”.",
