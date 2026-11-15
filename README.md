@@ -19,6 +19,7 @@ Previsión meteorológica gratuita para volar drones y aeromodelos: sin publicid
 - **Favoritos con nombre** y aparatos con sus propios límites. Todo se guarda solo en tu navegador.
 - **Enlace para compartir** que abre la app directamente en un sitio.
 - Disponible en **español e inglés**, con viento en km/h, m/s o nudos.
+- **Se puede instalar como app** (en el menú del navegador, «Añadir a pantalla de inicio») y entonces se abre a pantalla completa, sin barra de direcciones.
 
 ## Privacidad
 
@@ -55,6 +56,7 @@ Features:
 - IGN maps.
 - Named favourites.
 - Shareable links.
+- Installable as an app that opens full screen.
 
 All data stays in your browser.
 
