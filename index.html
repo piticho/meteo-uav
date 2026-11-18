@@ -108,6 +108,101 @@ footer a{color:inherit}
 a{color:var(--accent)}
 .leaflet-popup-content{font-size:13px;max-height:260px;overflow:auto}
 #btnFull{display:flex;align-items:center;padding:6px 8px}
+/* ===================== Tema v2 ===================== */
+:root{
+  --bg:#eef2f6; --card:#ffffff; --card2:#f6f8fb; --text:#0f1b29; --muted:#5d6b7b; --line:#dfe6ee;
+  --accent:#0d6efd; --accent-soft:#e6efff; --brand1:#0a2a4a; --brand2:#0b5c8f; --brand3:#0e8f9a;
+  --go:#169c56; --warn:#d48806; --nogo:#d93a35; --info:#3b82f6;
+  --go-bg:#e3f6ea; --warn-bg:#fdf1db; --nogo-bg:#fde5e3; --night:#e8edf4;
+  --tile-mix:26%; --shadow:0 1px 2px rgba(16,24,40,.05),0 6px 18px rgba(16,24,40,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#070d14; --card:#0f1823; --card2:#131e2b; --text:#e8eef5; --muted:#8fa0b3; --line:#1f2c3b;
+    --accent:#4da3ff; --accent-soft:#132a44; --brand1:#05182b; --brand2:#0a3f66; --brand3:#0b6f78;
+    --go:#2bd47a; --warn:#ffb02e; --nogo:#ff5a52; --info:#5aa9ff;
+    --go-bg:#0f2a1c; --warn-bg:#2e2310; --nogo-bg:#331615; --night:#0b131c;
+    --tile-mix:46%; --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 8px 24px rgba(0,0,0,.35); }
+}
+html,body{font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased}
+.v, .tile .v, .verdict .ttl, .alts, .hours{font-variant-numeric:tabular-nums}
+header{background:linear-gradient(120deg,var(--brand1) 0%,var(--brand2) 55%,var(--brand3) 100%);box-shadow:0 4px 18px rgba(0,0,0,.18)}
+.top h1{font-size:16px;font-weight:700;letter-spacing:.01em;opacity:1}
+.logo{border-radius:9px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.loc{font-weight:700;letter-spacing:.01em}
+.iconbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);border-radius:10px;backdrop-filter:blur(6px)}
+.iconbtn:active{background:rgba(255,255,255,.25)}
+nav button{opacity:.72;font-weight:500;border-bottom:0;position:relative}
+nav button.on{opacity:1;font-weight:700}
+nav button.on::after{content:"";position:absolute;left:22%;right:22%;bottom:0;height:3px;border-radius:3px 3px 0 0;background:#fff;box-shadow:0 0 12px rgba(255,255,255,.6)}
+main{padding:12px}
+.card{border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);padding:14px}
+.card h2{display:flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.09em;font-weight:700;color:var(--muted)}
+.card h2::before{content:"";width:4px;height:14px;border-radius:2px;background:linear-gradient(var(--brand3),var(--accent))}
+select,input[type=number],input[type=text],input[type=search]{border-radius:10px;background:var(--card2)}
+.btn{border-radius:10px;font-weight:600;background:linear-gradient(135deg,var(--brand2),var(--brand3))}
+.btn.ghost{background:var(--accent-soft);color:var(--accent)}
+/* veredicto */
+.verdict{border-radius:16px;padding:12px 14px;color:#fff;position:relative;overflow:hidden;box-shadow:0 10px 28px -10px var(--vc)}
+.verdict::after{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.10)}
+.v-go{--vc:#16a34a;background:linear-gradient(135deg,#1fb866 0%,#0d7a43 100%);color:#fff}
+.v-warn{--vc:#d97706;background:linear-gradient(135deg,#f5a524 0%,#c2620a 100%);color:#fff}
+.v-nogo{--vc:#dc2626;background:linear-gradient(135deg,#f0524b 0%,#a81c1c 100%);color:#fff}
+.verdict .big{width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.2);font-size:20px}
+.verdict .ttl{font-weight:800;font-size:18px;letter-spacing:.01em}
+.verdict .small,.verdict .reasons,.verdict div[style*="color:var(--text)"]{color:rgba(255,255,255,.92)!important}
+.reasons{color:rgba(255,255,255,.95)}
+/* casillas */
+.grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.tile{--c:var(--info);position:relative;border-radius:10px;padding:10px;background:
+  linear-gradient(160deg,color-mix(in srgb,var(--c) var(--tile-mix),var(--card)) 0%,var(--card2) 78%);
+  border:1px solid color-mix(in srgb,var(--c) 30%,var(--line));outline:0!important;display:flex;flex-direction:column}
+.tile.n{--c:#64748b;background:linear-gradient(160deg,color-mix(in srgb,var(--info) 8%,var(--card2)) 0%,var(--card2) 80%);border-color:var(--line)}
+.tile.ok{--c:var(--go)} .tile.meh{--c:var(--warn)} .tile.bad{--c:var(--nogo)}
+.tile .hd{display:flex;align-items:center;gap:5px;padding-right:12px}
+.tile .ic{width:14px;height:14px;display:grid;place-items:center;flex:none;color:var(--c)}
+.tile.n .ic{color:var(--muted)}
+.tile .ic svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tile .k{font-size:12px;color:var(--muted);line-height:1.3}
+.tile .v{font-size:20px;font-weight:700;line-height:1.3}
+.tile .v small{font-size:12px;font-weight:600;color:var(--muted)}
+.tile .s{font-size:12px;color:var(--muted);line-height:1.35}
+.tile.sm .v{font-size:18px}
+.tile .x{font-size:12px;font-weight:600;color:var(--c);line-height:1.35}
+.tile.n .x{color:var(--text)}
+.tile .pill{position:absolute;top:9px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 25%,transparent)}
+.tile.bad,.tile.meh{font-weight:inherit}
+.tile.bad .v,.tile.meh .v{color:var(--text)}
+/* barras de viento */
+.alts{height:140px}
+.alts .bar{max-width:44px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--brand3) 70%,var(--accent)))}
+.alts .bar.hl{background:linear-gradient(180deg,#ffbf47,#e07b00)}
+/* tablas */
+.hours th{background:var(--card);font-size:12px;letter-spacing:.03em}
+.hours tr.day td{background:var(--accent-soft);color:var(--accent)}
+.hours tr.sel td{outline-color:var(--accent)}
+.hours td.bad{color:var(--nogo)} .hours td.meh{color:var(--warn)}
+.cmpt th.dayh{text-align:left;color:var(--accent);font-weight:700;text-transform:capitalize;border-bottom:0;padding-bottom:0}
+.cmpt th.dayh + th.dayh{border-left:1px solid var(--line)}
+.cmpt td.cell{font-weight:700}
+.cmpt td.cell .small{font-weight:500}
+.cmpt tr:first-child th{border-bottom:0}
+/* tarjeta plegable */
+details.fold > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px}
+details.fold > summary::-webkit-details-marker{display:none}
+details.fold > summary h2{margin:0;flex:1;flex-wrap:wrap}
+details.fold > summary .chev{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--card2);border:1px solid var(--line);transition:transform .2s;flex:none}
+details.fold > summary .chev svg{width:16px;height:16px;fill:none;stroke:var(--muted);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+details.fold[open] > summary .chev{transform:rotate(180deg)}
+details.fold[open] > summary{margin-bottom:10px}
+/* zonas, NOTAM y medioambientales */
+.zone{border-radius:10px;background:var(--card2);border:1px solid var(--line);border-left-width:4px}
+.zhead{font-weight:700;margin:14px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;margin-left:6px;vertical-align:1px}
+.tag.on{background:var(--nogo-bg);color:var(--nogo)} .tag.off{background:var(--card);color:var(--muted);border:1px solid var(--line)}
+.notamtxt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px;margin-top:6px}
+footer .fb a{border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
+.toast{border-radius:12px}
+
 /* móvil en horizontal: cabecera en una sola fila para no comerse la pantalla */
 @media (orientation:landscape) and (max-height:560px){
   header{display:flex;align-items:center;gap:8px;padding:2px 10px}
@@ -187,10 +282,10 @@ a{color:var(--accent)}
         <div class="alts" id="alts"></div>
         <div class="small muted" style="margin-top:6px" id="altNote"></div>
       </div>
-      <div class="card">
-        <h2><span data-i18n="otherModels">¿Qué dicen otros modelos?</span> <span class="muted small" style="text-transform:none;letter-spacing:0" data-i18n="otherModelsSub">(viento a tu altura, próximas horas)</span></h2>
+      <details class="card fold" id="cmpCard">
+        <summary><h2><span data-i18n="otherModels">¿Qué dicen otros modelos?</span> <span class="muted small" style="text-transform:none;letter-spacing:0;font-weight:500" data-i18n="otherModelsSub">(viento a tu altura, próximas horas)</span></h2><span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
         <div id="cmp"></div>
-      </div>
+      </details>
       <div class="card">
         <h2 data-i18n="zonesHereTitle">Zonas de vuelo en este punto</h2>
         <div id="zonesHere" class="muted">—</div>
@@ -218,6 +313,8 @@ a{color:var(--accent)}
           <span><i style="background:#7b3294"></i><span data-i18n="lgPriv">Privacidad / seguridad</span></span>
           <span><i style="background:#f08c00"></i><span data-i18n="lgSens">Infraestructuras sensibles</span></span>
           <span><i style="background:#e6c200"></i><span data-i18n="lgRail">Ferrocarril y otras</span></span>
+          <span><i style="background:#e8368f;outline:1px dashed #e8368f;outline-offset:1px"></i><span data-i18n="lgNotam">NOTAM</span></span>
+          <span><i style="background:#2f9e44"></i><span data-i18n="lgEnv">Medioambientales</span></span>
         </div>
         <div class="row">
           <select id="baseSel"><option value="ign" data-i18n="baseIgn">Mapa (IGN)</option><option value="pnoa" data-i18n="basePnoa">Ortofoto (IGN)</option><option value="osm">OpenStreetMap</option></select>
@@ -309,7 +406,7 @@ a{color:var(--accent)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
 <script>
 "use strict";
-const VERSION = "1.11";
+const VERSION = "2.0";
 const droneSvg = s => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="5" cy="5" r="3"/><circle cx="19" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><path d="M7.2 7.2l2.8 2.8M16.8 7.2L14 10M7.2 16.8L10 14M16.8 16.8L14 14"/><rect x="9.5" y="9.5" width="5" height="5" rx="1.2" fill="currentColor"/></svg>`;
 /* ============ utilidades ============ */
 const $ = s => document.querySelector(s);
@@ -453,6 +550,37 @@ en:{
     61:"Light rain",63:"Rain",65:"Heavy rain",66:"Freezing rain",67:"Heavy freezing rain",71:"Light snow",73:"Snow",75:"Heavy snow",77:"Snow grains",80:"Light showers",81:"Showers",82:"Heavy showers",
     85:"Snow showers",86:"Heavy snow showers",95:"Thunderstorm",96:"Thunderstorm with hail",99:"Thunderstorm with heavy hail"},
 }};
+/* ---- textos v2 ---- */
+Object.assign(I18N.es,{
+  bft:"Fuerza {n} Beaufort", tHum:"Humedad", tPress:"Presión", tUv:"Índice UV", tAqi:"Calidad del aire",
+  dew:"punto de rocío {d} °C", fogRisk:"Riesgo de niebla o condensación", humOk:"Sin condensación",
+  pUp:"subiendo", pDown:"bajando", pFlat:"estable", pTrend:"a nivel del mar · {t}",
+  uv0:"Bajo", uv1:"Moderado", uv2:"Alto", uv3:"Muy alto", uv4:"Extremo",
+  aq0:"Buena", aq1:"Aceptable", aq2:"Moderada", aq3:"Mala", aq4:"Muy mala", aq5:"Extremadamente mala", aqSrc:"índice europeo", aqNa:"sin dato para esa hora",
+  lgNotam:"NOTAM", lgEnv:"Medioambientales",
+  nHead:"NOTAM", nNone:"No hay NOTAM publicados en este punto.", nActive:"activo a esa hora", nOther:"en otras horas o fechas",
+  nFrom:"Del {b} al {c} (UTC)", nSched:"Horario (UTC): {d}", nLevels:"Alturas: {l}", nAbove:"Empieza por encima de tu altura de vuelo",
+  nErr:"No se pudieron consultar los NOTAM.", nSum:"{n} NOTAM activo(s) a esa hora",
+  eHead:"Zonas medioambientales", eNote:"Informativas (no son datos aeronáuticos): pueden tener normas propias de la comunidad autónoma sobre el vuelo de drones.",
+  mapCredit:'Zonas y NOTAM: <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a>. Esta app es solo informativa: la referencia oficial es ENAIRE Drones.',
+  zCheck:'Comprueba siempre en <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE Drones</a> antes de volar.',
+  stOk:"dentro de límites", stMeh:"cerca del límite", stBad:"fuera de límites"
+});
+Object.assign(I18N.en,{
+  bft:"Beaufort force {n}", tHum:"Humidity", tPress:"Pressure", tUv:"UV index", tAqi:"Air quality",
+  dew:"dew point {d} °C", fogRisk:"Fog or condensation risk", humOk:"No condensation",
+  pUp:"rising", pDown:"falling", pFlat:"steady", pTrend:"sea level · {t}",
+  uv0:"Low", uv1:"Moderate", uv2:"High", uv3:"Very high", uv4:"Extreme",
+  aq0:"Good", aq1:"Fair", aq2:"Moderate", aq3:"Poor", aq4:"Very poor", aq5:"Extremely poor", aqSrc:"European index", aqNa:"no data for that hour",
+  lgNotam:"NOTAM", lgEnv:"Environmental",
+  nHead:"NOTAM", nNone:"No NOTAM published at this point.", nActive:"active at that time", nOther:"at other times or dates",
+  nFrom:"From {b} to {c} (UTC)", nSched:"Schedule (UTC): {d}", nLevels:"Heights: {l}", nAbove:"Starts above your flight height",
+  nErr:"Couldn't query the NOTAM.", nSum:"{n} NOTAM active at that time",
+  eHead:"Environmental zones", eNote:"For information only (not aeronautical data): regional rules on drone flights may apply.",
+  mapCredit:'Zones and NOTAM: <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> (Spain only). This app is for information only: the official reference is ENAIRE Drones.',
+  zCheck:'Always check <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE Drones</a> before flying.',
+  stOk:"within limits", stMeh:"near the limit", stBad:"over the limit"
+});
 let LANG = LS.get("lang", null) || ((navigator.language||"es").toLowerCase().startsWith("es") ? "es" : "en");
 if (!I18N[LANG]) LANG="es";
 /* Texto traducido; {clave} se sustituye por vars.clave. Si falta en inglés, cae al español. */
@@ -658,7 +786,7 @@ async function computeSats(){
 const satErrTxt = () => !S.satErr ? "" : typeof S.satErr==="string" ? t(S.satErr) : t(S.satErr.k,{v:S.satErr.v});
 
 /* ============ descarga de datos ============ */
-const HOURLY = ["temperature_2m","relative_humidity_2m","dew_point_2m","precipitation_probability","precipitation","weather_code","cloud_cover","cloud_cover_low","visibility","is_day","wind_gusts_10m",
+const HOURLY = ["uv_index","pressure_msl","temperature_2m","relative_humidity_2m","dew_point_2m","precipitation_probability","precipitation","weather_code","cloud_cover","cloud_cover_low","visibility","is_day","wind_gusts_10m",
   ...HEIGHTS.map(z=>"wind_speed_"+z+"m"), ...HEIGHTS.map(z=>"wind_direction_"+z+"m"),
   ...PLEVELS.flatMap(l=>["wind_speed_"+l+"hPa","wind_direction_"+l+"hPa","geopotential_height_"+l+"hPa"])];
 const CMP_MODELS = [["best_match","cmpAuto"],["ecmwf_ifs025","ECMWF"],["icon_seamless","ICON"],["gfs_seamless","GFS"],["meteofrance_seamless","Météo-France"]];
@@ -679,6 +807,29 @@ async function loadCmp(){
   try{ const r=await fetch(u); const j=await r.json(); if (j.error) throw new Error(j.reason); S.cmp=j; }
   catch(e){ S.cmpErr=e.message; }
 }
+async function loadAqi(){
+  S.aq=null;
+  try{
+    const u=`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${S.loc.lat}&longitude=${S.loc.lon}&hourly=european_aqi&timezone=auto&timeformat=unixtime&forecast_days=5`;
+    const j=await (await fetch(u)).json(); if (j.error) throw new Error(j.reason);
+    S.aq={}; j.hourly.time.forEach((tm,k)=>{ S.aq[tm]=j.hourly.european_aqi[k]; });
+  }catch(e){ S.aq=null; }
+}
+/* ---- NOTAM y zonas medioambientales de ENAIRE (las mismas capas públicas que usa ENAIRE Drones) ---- */
+const NOTAM_URL = "https://servais.enaire.es/insignias/rest/services/NOTAM/NOTAM_UAS_APP_V3/MapServer/1";
+const ENP_URL = "https://servais.enaire.es/insignias/rest/services/ENP/ENP_APP_Local_V4/MapServer";
+const NOTAM_F = "notamId,itemBstr,itemCstr,itemB,itemC,itemD,itemE,itemF,itemG,LOWER_VAL,UPPER_VAL,FLYING_LEVELS_DESC";
+const ENP_F = "SITENAME,FIGURA_LP,REMARKS_TXT,REMARKS_TXT_en,CONTACTO,CONTACT";
+const ptQ = (lat,lon,f) => `query?geometry=${lon},${lat}&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=${f}&returnGeometry=false&f=json`;
+async function queryExtrasAt(lat, lon){
+  const get = async u => { const j=await (await fetch(u)).json(); if (j.error) throw new Error(j.error.message); return j.features.map(f=>f.attributes); };
+  const [notams, env] = await Promise.all([
+    get(`${NOTAM_URL}/${ptQ(lat,lon,NOTAM_F)}`).catch(()=>null),
+    Promise.all([0,1].map(id=>get(`${ENP_URL}/${id}/${ptQ(lat,lon,ENP_F)}`))).then(a=>a.flat()).catch(()=>null)
+  ]);
+  return {notams, env};
+}
+async function loadExtrasHere(){ S.extras = await queryExtrasAt(S.loc.lat, S.loc.lon); }
 async function loadKp(){
   S.kp=null; S.kpErr=null;
   try{
@@ -734,8 +885,9 @@ async function loadAll(){
   refreshLocName();
   $("#verdict").innerHTML = `<div class="muted">${esc(t("loading"))}</div>`;
   $("#tiles").innerHTML=""; $("#alts").innerHTML=""; $("#cmp").innerHTML=""; $("#zonesHere").textContent=t("queryingEnaire");
-  const zp = loadZonesHere().then(renderZones);
-  await Promise.all([loadWx(), loadKp(), loadCmp()]);
+  S.extras=null;
+  const zp = Promise.all([loadZonesHere(), loadExtrasHere()]).then(renderZones);
+  await Promise.all([loadWx(), loadKp(), loadCmp(), loadAqi()]);
   if (S.wx){
     const now=Date.now()/1000, T=S.wx.hourly.time;
     S.sel = Math.max(0, T.findIndex((tm,i)=> tm<=now && (T[i+1]??Infinity)>now));
@@ -775,6 +927,24 @@ const fmtVis = v => !isNum(v) ? "—" : v>=10000 ? ">10 km" : v>=1000 ? (v/1000)
 const LV = [["go","vGo"],["warn","vWarn"],["nogo","vNogo"]];
 
 /* ============ render ============ */
+const ICONS = {
+  wind:'<path d="M3 8h10a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h6"/>',
+  gust:'<path d="M2 7h9a2.5 2.5 0 1 0-2.5-2.5"/><path d="M2 11h15a3 3 0 1 1-3 3"/><path d="M2 15h5"/><path d="M13 20l3-3 3 3"/>',
+  flag:'<path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/>',
+  cloud:'<path d="M7 18h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.1 9.2 4.5 4.5 0 0 0 7 18z"/>',
+  rain:'<path d="M7 14h10a4 4 0 0 0 .4-7.98A6 6 0 0 0 6.2 5.6 4.2 4.2 0 0 0 7 14z"/><path d="M8 17l-1 3M12 17l-1 3M16 17l-1 3"/>',
+  temp:'<path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/>',
+  eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  kp:'<path d="M3 12h3l3-7 4 14 3-7h5"/>',
+  sat:'<path d="M9.5 9.5l5 5"/><path d="M7 7l3-3 3.5 3.5-3 3z"/><path d="M13.5 13.5l3-3L20 14l-3 3z"/><path d="M5 15a4 4 0 0 0 4 4"/><path d="M3 15a6 6 0 0 0 6 6"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  hum:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 15.5l5-5"/>',
+  press:'<path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l3.5-4.5"/><path d="M8 18h8"/>',
+  uv:'<circle cx="12" cy="15" r="4"/><path d="M12 4v3M5.6 8.6l2 2M18.4 8.6l-2 2M3 15h2M19 15h2"/>',
+  air:'<path d="M5 20c0-8.5 6.5-15 15-15 0 9-6.5 15-15 15z"/><path d="M5 20l8-8"/>'
+};
+const BFT_LIM=[1,6,12,20,29,39,50,62,75,89,103,118]; // km/h, límite superior de cada fuerza
+const beaufort = kmh => { const n=BFT_LIM.findIndex(x=>kmh<x); return n<0?12:n; };
 function renderAll(){ renderProfSel(); renderSummary(); renderHours(); renderZones(); }
 function renderProfSel(){
   $("#profSel").innerHTML = S.profiles.map(p=>`<option value="${p.id}" ${p.id===S.active?"selected":""}>${esc(p.name)}</option>`).join("");
@@ -786,28 +956,42 @@ function renderSummary(){
   const isNow = Math.abs(ts - Date.now()/1000) < 3600;
   $("#selHourLbl").textContent = (isNow?t("now")+" · ":"")+fmtTime(ts,{weekday:"long",day:"numeric",hour:"2-digit",minute:"2-digit"});
   const ev=evalHour(i), [cls,txt]=LV[ev.level];
-  $("#verdict").innerHTML = `<div class="verdict v-${cls}"><div class="big">${ev.level===0?"✔":ev.level===1?"⚠":"✖"}</div><div><div style="font-weight:700;font-size:18px">${esc(t(txt))}</div>
+  $("#verdict").innerHTML = `<div class="verdict v-${cls}"><div class="big">${ev.level===0?"✔":ev.level===1?"⚠":"✖"}</div><div><div class="ttl">${esc(t(txt))}</div>
     ${ev.reasons.length?`<ul class="reasons">${ev.reasons.map(r=>`<li>${esc(r[1])}</li>`).join("")}</ul>`:`<div class="small" style="color:var(--text)">${esc(t("allWithin",{p:p.name}))}</div>`}
     ${!S.sats && !S.satErr?`<div class="small muted">${esc(t("calcSats"))}</div>`:""}</div></div>`;
   const w=windAt(p.alt,i), g=gustAt(p.alt,i), d=dirAt(p.alt,i), k=kpAt(ts), s=S.sats?.[i], wc=wmo(H.weather_code?.[i]);
-  const flag=(val,lim,hib=true)=>!isNum(val)||!isNum(lim)?"":(hib?val>lim:val<lim)?"bad":(hib?val>lim*.85:val<lim*1.15)&&lim>0?"meh":"";
+  const flag=(val,lim,hib=true)=>!isNum(val)||!isNum(lim)?"":(hib?val>lim:val<lim)?"bad":(hib?val>lim*.85:val<lim*1.15)&&lim>0?"meh":"ok";
   const day = S.wx.daily.time.findIndex((tm,j)=>ts>=tm && ts<(S.wx.daily.time[j+1]??Infinity));
   const sr=S.wx.daily.sunrise[day], ss=S.wx.daily.sunset[day];
   const hm = x => x ? fmtTime(x,{hour:"2-digit",minute:"2-digit"}) : "—";
   const kpKind = k ? ({observed:t("kpObs"),estimated:t("kpEst"),predicted:t("kpPred")}[k.kind]||k.kind) : "";
+  const bf = v => isNum(v) ? t("bft",{n:beaufort(v)}) : "";
+  const tp=H.temperature_2m[i], td=H.dew_point_2m?.[i], rh=H.relative_humidity_2m?.[i];
+  const pr=H.pressure_msl?.[i], pr3=H.pressure_msl?.[Math.max(0,i-3)];
+  const prT = isNum(pr)&&isNum(pr3) ? (pr-pr3>1 ? t("pUp") : pr3-pr>1 ? t("pDown") : t("pFlat")) : "";
+  const uv=H.uv_index?.[i], aq=S.aq?.[ts];
+  const uvLv = !isNum(uv) ? "" : t("uv"+(uv<3?0:uv<6?1:uv<8?2:uv<11?3:4));
+  const aqLv = !isNum(aq) ? "" : t("aq"+(aq<20?0:aq<40?1:aq<60?2:aq<80?3:aq<100?4:5));
+  const tempFlag = isNum(tp) ? ((tp<p.tmin||tp>p.tmax)?"bad":"ok") : "";
+  const fog = isNum(tp)&&isNum(td) ? tp-td<=2.5 : null;
   const tiles = [
-    [t("tWindAt",{a:p.alt}), `${fw(w.v)} <small>${U}</small> ${arrow(d)}`, (d!=null?t("from",{d:cardinal(d)}):"")+(w.clamp&&w.top?" · "+t("dataAt",{z:w.top}):""), flag(w.v,p.wind)],
-    [t("tGust"), `${fw(g)} <small>${U}</small>`, t("at10",{v:fw(H.wind_gusts_10m[i])}), flag(g,p.gust)],
-    [t("tWind10"), `${fw(H.wind_speed_10m[i])} <small>${U}</small> ${arrow(H.wind_direction_10m[i])}`, t("from",{d:cardinal(H.wind_direction_10m[i])}), ""],
-    [t("tSky"), `${wc[0]} ${Math.round(H.cloud_cover[i]??0)}%`, wc[1]+(isNum(H.cloud_cover_low?.[i])?" · "+t("low",{v:H.cloud_cover_low[i]}):""), ""],
-    [t("tRain"), `${H.precipitation_probability?.[i]??"—"}%`, isNum(H.precipitation_probability?.[i])?(isNum(H.precipitation?.[i])?`${H.precipitation[i]} mm`:""):t("noProbModel"), flag(H.precipitation_probability?.[i],p.precip)],
-    [t("tTemp"), `${isNum(H.temperature_2m[i])?Math.round(H.temperature_2m[i]):"—"} °C`, t("dew",{d:isNum(H.dew_point_2m?.[i])?Math.round(H.dew_point_2m[i]):"—", h:H.relative_humidity_2m?.[i]??"—"}), (H.temperature_2m[i]<p.tmin||H.temperature_2m[i]>p.tmax)?"bad":""],
-    [t("tVis"), fmtVis(H.visibility?.[i]), isNum(H.visibility?.[i])?"":t("noVisModel"), isNum(H.visibility?.[i])?flag(H.visibility[i],p.vis,false):""],
-    [t("tKp"), k?k.kp.toFixed(1):"—", S.kpErr?t("errKp"):k?kpKind:t("kpOut"), k?flag(k.kp,p.kp):""],
-    [t("tSats"), s?s.tot:(S.satErr&&!S.sats?"—":"…"), s?Object.entries(s.per).map(([a,n])=>GLBL[a]+" "+n).join(" · "):(satErrTxt()||t("calculating")), s&&p.sats>0?flag(s.tot,p.sats,false):""],
-    [t("tSun"), `${hm(sr)} – ${hm(ss)}`, H.is_day?.[i]===0?t("nightNow"):t("sunRiseSet"), ""],
+    {ic:"wind", k:t("tWindAt",{a:p.alt}), v:`${fw(w.v)} <small>${U}</small> ${arrow(d)}`, s:(d!=null?t("from",{d:cardinal(d)}):"")+(w.clamp&&w.top?" · "+t("dataAt",{z:w.top}):""), x:bf(w.v), f:flag(w.v,p.wind)},
+    {ic:"gust", k:t("tGust"), v:`${fw(g)} <small>${U}</small>`, s:t("at10",{v:fw(H.wind_gusts_10m[i])}), x:bf(g), f:flag(g,p.gust)},
+    {ic:"flag", k:t("tWind10"), v:`${fw(H.wind_speed_10m[i])} <small>${U}</small> ${arrow(H.wind_direction_10m[i])}`, s:t("from",{d:cardinal(H.wind_direction_10m[i])}), x:bf(H.wind_speed_10m[i]), f:""},
+    {ic:"cloud", k:t("tSky"), v:`${wc[0]} ${Math.round(H.cloud_cover[i]??0)}%`, s:wc[1]+(isNum(H.cloud_cover_low?.[i])?" · "+t("low",{v:H.cloud_cover_low[i]}):""), f:""},
+    {ic:"rain", k:t("tRain"), v:`${H.precipitation_probability?.[i]??"—"}%`, s:isNum(H.precipitation_probability?.[i])?(isNum(H.precipitation?.[i])?`${H.precipitation[i]} mm`:""):t("noProbModel"), f:flag(H.precipitation_probability?.[i],p.precip)},
+    {ic:"temp", k:t("tTemp"), v:`${isNum(tp)?Math.round(tp):"—"} <small>°C</small>`, s:t("dew",{d:isNum(td)?Math.round(td):"—"}), f:tempFlag},
+    {ic:"hum", k:t("tHum"), v:`${rh??"—"}<small>%</small>`, s:fog==null?"":fog?t("fogRisk"):t("humOk"), f:fog?"meh":""},
+    {ic:"eye", k:t("tVis"), v:fmtVis(H.visibility?.[i]), s:isNum(H.visibility?.[i])?"":t("noVisModel"), f:isNum(H.visibility?.[i])?flag(H.visibility[i],p.vis,false):""},
+    {ic:"press", k:t("tPress"), v:`${isNum(pr)?Math.round(pr):"—"} <small>hPa</small>`, s:prT?t("pTrend",{t:prT}):"", f:""},
+    {ic:"uv", k:t("tUv"), v:isNum(uv)?uv.toFixed(1):"—", s:uvLv, f:""},
+    {ic:"air", k:t("tAqi"), v:isNum(aq)?Math.round(aq):"—", s:isNum(aq)?aqLv+" · "+t("aqSrc"):t("aqNa"), f:""},
+    {ic:"kp", k:t("tKp"), v:k?k.kp.toFixed(1):"—", s:S.kpErr?t("errKp"):k?kpKind:t("kpOut"), f:k?flag(k.kp,p.kp):""},
+    {ic:"sat", k:t("tSats"), v:s?s.tot:(S.satErr&&!S.sats?"—":"…"), s:s?Object.entries(s.per).map(([a,n])=>GLBL[a]+" "+n).join(" · "):(satErrTxt()||t("calculating")), f:s&&p.sats>0?flag(s.tot,p.sats,false):""},
+    {ic:"sun", cls:"sm", k:t("tSun"), v:`${hm(sr)} – ${hm(ss)}`, s:H.is_day?.[i]===0?t("nightNow"):t("sunRiseSet"), f:""},
   ];
-  $("#tiles").innerHTML = tiles.map(x=>`<div class="tile ${x[3]}"><div class="k">${esc(x[0])}</div><div class="v">${x[1]}</div><div class="s">${esc(x[2])}</div></div>`).join("");
+  const ST={ok:"stOk",meh:"stMeh",bad:"stBad"};
+  $("#tiles").innerHTML = tiles.map(o=>`<div class="tile ${o.f||"n"} ${o.cls||""}">${o.f?`<span class="pill" title="${esc(t(ST[o.f]))}"></span>`:""}<div class="hd"><span class="ic"><svg viewBox="0 0 24 24">${ICONS[o.ic]}</svg></span><div class="k">${esc(o.k)}</div></div><div class="v">${o.v}</div>${o.x?`<div class="x">${esc(o.x)}</div>`:""}<div class="s">${esc(o.s)}</div></div>`).join("");
   const accNote = isNum(S.loc.acc) ? t("accNote",{v:S.loc.acc>=1000?(S.loc.acc/1000).toFixed(1)+" km":S.loc.acc+" m", x:S.loc.acc>1000?t("accLow"):""}) : "";
   $("#srcNote").textContent = accNote + t("srcNote",{m:$("#setModel").selectedOptions[0]?.text||S.model, e:S.wx.elevation}) + (S.satErr&&S.sats?" "+satErrTxt():"");
   $("#altTitle").textContent = t("windByAlt",{u:U});
@@ -830,10 +1014,12 @@ function renderCmp(){
   const rows = CMP_MODELS.map(([m,lbl])=>{
     const cells = idx.map(k=>{ const v=windAt(p.alt,k,S.cmp.hourly,"_"+m,S.cmp.elevation).v; const g=S.cmp.hourly["wind_gusts_10m_"+m]?.[k];
       const c = isNum(v)&&v>p.wind?"bad":isNum(v)&&v>p.wind*.85?"meh":"";
-      return `<td class="${c}">${fw(v)}${isNum(g)?`<div class="muted small">${t("gustAbbr")} ${fw(g)}</div>`:""}</td>`; }).join("");
+      return `<td class="cell ${c}">${fw(v)}${isNum(g)?`<div class="muted small">${t("gustAbbr")} ${fw(g)}</div>`:""}</td>`; }).join("");
     return `<tr><td class="l">${esc(t(lbl))}${m===S.model?" ●":""}</td>${cells}</tr>`;
   }).join("");
-  $("#cmp").innerHTML = `<div class="tablewrap" style="max-height:none"><table class="hours"><tr><th class="l">${UNIT_LBL[S.unit]}</th>${idx.map(k=>`<th>${fmtTime(T[k],{weekday:"short",hour:"2-digit"})}</th>`).join("")}</tr>${rows}</table></div>
+  const groups=[]; idx.forEach(k=>{ const d=fmtTime(T[k],{weekday:"long"}); const g=groups[groups.length-1]; if (g&&g.d===d) g.n++; else groups.push({d,n:1}); });
+  const dayRow = `<tr><th></th>${groups.map(g=>`<th class="dayh" colspan="${g.n}">${esc(g.d)}</th>`).join("")}</tr>`;
+  $("#cmp").innerHTML = `<div class="tablewrap" style="max-height:none"><table class="hours cmpt">${dayRow}<tr><th class="l">${UNIT_LBL[S.unit]}</th>${idx.map(k=>`<th>${fmtTime(T[k],{hour:"2-digit",minute:"2-digit"})}</th>`).join("")}</tr>${rows}</table></div>
     <div class="small muted" style="margin-top:6px">${esc(t("cmpNote",{a:p.alt}))}</div>`;
 }
 function renderHours(){
@@ -868,7 +1054,8 @@ function renderZones(){
   const el=$("#zonesHere");
   if (S.zonesErr){ el.innerHTML=`<span class="err">${esc(t("errZones"))}</span>`; return; }
   if (!S.zones) return;
-  el.innerHTML = zonesListHtml(S.zones, S.wx?.elevation) + `<p class="small muted">${t("zCheck")}</p>`;
+  const tsSel = S.wx ? S.wx.hourly.time[S.sel] : Date.now()/1000;
+  el.innerHTML = zonesListHtml(S.zones, S.wx?.elevation) + extrasHtml(S.extras, S.wx?.elevation, tsSel) + `<p class="small muted">${t("zCheck")}</p>`;
   el.classList.remove("muted");
 }
 function zoneBlock(z, title){
@@ -885,8 +1072,43 @@ function zoneColor(z){
   return "#888";
 }
 
+/* NOTAM: alturas en pies; referencia según los campos F) y G) del NOTAM */
+function notamAbove(n, elev, alt){
+  const f=(n.itemF||"").toUpperCase();
+  if (!f || f==="SFC" || f==="GND" || !isNum(n.LOWER_VAL) || n.LOWER_VAL<=0) return false;
+  let low = n.LOWER_VAL*0.3048;
+  if (f.includes("AMSL") || f.startsWith("FL")) { if (!isNum(elev)) return null; low -= elev; }
+  return low > alt;
+}
+const notamActive = (n, ts) => isNum(n.itemB) && isNum(n.itemC) && n.itemB<=ts*1000 && ts*1000<=n.itemC;
+function notamBlock(n, on){
+  const lv = n.FLYING_LEVELS_DESC || [n.itemF,n.itemG].filter(Boolean).join(" / ");
+  return `<details class="zone" style="border-left-color:#e8368f"><summary>NOTAM ${esc(n.notamId||"")}<span class="tag ${on?"on":"off"}">${esc(t(on?"nActive":"nOther"))}</span> <span class="muted small">(${esc(lv)})</span></summary>
+    <div class="msg"><p>${esc(t("nFrom",{b:n.itemBstr||"?",c:n.itemCstr||"?"}))}</p>${n.itemD?`<p>${esc(t("nSched",{d:n.itemD}))}</p>`:""}<p>${esc(t("nLevels",{l:lv}))}</p><div class="notamtxt">${esc(n.itemE||"")}</div></div></details>`;
+}
+function envBlock(e){
+  const txt = (LANG==="en" && e.REMARKS_TXT_en) ? e.REMARKS_TXT_en : (e.REMARKS_TXT||"");
+  const ct = LANG==="en" ? (e.CONTACT||"") : (e.CONTACTO||"");
+  return `<details class="zone" style="border-left-color:#2f9e44"><summary>${esc(e.SITENAME||"")} <span class="muted small">(${esc(e.FIGURA_LP||t("lgEnv"))})</span></summary><div class="msg">${cleanHtml(txt)}${ct?`<p>${cleanHtml(ct)}</p>`:""}</div></details>`;
+}
+function extrasHtml(x, elev, ts){
+  if (!x) return "";
+  const alt = prof().alt;
+  let html = `<div class="zhead">${esc(t("nHead"))}</div>`;
+  if (x.notams==null) html += `<p class="err small">${esc(t("nErr"))}</p>`;
+  else {
+    const list = x.notams.filter(n=>!isNum(n.itemC) || n.itemC>Date.now()).map(n=>({n, on:notamActive(n,ts) && notamAbove(n,elev,alt)!==true}));
+    list.sort((a,b)=>b.on-a.on);
+    html += !list.length ? `<p class="small">${esc(t("nNone"))}</p>` : list.map(o=>notamBlock(o.n,o.on)).join("");
+  }
+  if (x.env && x.env.length){
+    const seen=new Set(), env=x.env.filter(e=>{ const k=e.SITENAME+"|"+e.FIGURA_LP; if (seen.has(k)) return false; seen.add(k); return true; });
+    html += `<div class="zhead">${esc(t("eHead"))}</div><p class="small muted">${esc(t("eNote"))}</p>` + env.map(envBlock).join("");
+  }
+  return html;
+}
 /* ============ mapa ============ */
-let map=null, marker=null, zoneLayer=null, zoneCtl=null, bases={};
+let map=null, marker=null, zoneLayer=null, notamLayer=null, envLayer=null, zoneCtl=null, bases={};
 /* Centra el mapa en la ubicación elegida cuando esta ha cambiado desde la última vez que se centró
    (si el usuario solo ha movido el mapa, no se lo recoloca). */
 function centerMap(){
@@ -911,17 +1133,22 @@ function initMap(){
   // Las muy grandes (TMA, CTR…) se rellenan muy poco para no tapar el mapa.
   zoneLayer = L.geoJSON(null,{interactive:false, style:f=>{ const big=(f.properties["SHAPE.STArea()"]||0)>0.01;
     return {color:zoneColor(f.properties),weight:big?1:1.5,fillOpacity:big?.04:.2}; }}).addTo(map);
+  envLayer = L.geoJSON(null,{interactive:false, style:{color:"#2f9e44",weight:1,fillOpacity:.06}});
+  notamLayer = L.geoJSON(null,{interactive:false, style:{color:"#e8368f",weight:2,dashArray:"6 4",fillOpacity:.12}});
+  envLayer.addTo(map); zoneLayer.bringToFront(); notamLayer.addTo(map);
   // Al tocar el mapa: «Volar aquí» arriba y un resumen corto; el detalle de las zonas va plegado.
   map.on("click", async e=>{
     const {lat,lng}=e.latlng, btn=`<button class="btn" onclick="pickPoint(${lat},${lng})">${esc(t("flyHere"))}</button>`;
     const pop=L.popup({maxWidth:260,minWidth:180,autoPanPadding:[30,30]}).setLatLng(e.latlng).setContent(`${btn}<div class="small muted" style="margin-top:6px">${esc(t("mapQuerying"))}</div>`).openOn(map);
     const elevP = fetch(`https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lng}`).then(r=>r.json()).then(j=>j.elevation?.[0]).catch(()=>null);
     try{
-      const [zs,elev]=await Promise.all([queryZonesAt(lat,lng), elevP]);
+      const [zs,elev,ex]=await Promise.all([queryZonesAt(lat,lng), elevP, queryExtrasAt(lat,lng)]);
       const {here, alt}=classifyZones(zs,elev);
       const list=here.slice(0,3).map(z=>z.name||z.otherReasonInfo||z.identifier).join(", ")+(here.length>3?"…":"");
       const sum=!here.length ? t("zSumNone",{a:alt}) : t(here.length===1?"zSum1":"zSumN",{a:alt,n:here.length,l:list});
-      pop.setContent(`${btn}<div class="small" style="margin-top:8px">${esc(sum)}</div><details class="popdet"><summary>${esc(t("showDetails"))}</summary>${zonesListHtml(zs,elev)}</details>`);
+      const tsSel = S.wx ? S.wx.hourly.time[S.sel] : Date.now()/1000;
+      const nOn = (ex.notams||[]).filter(n=>notamActive(n,tsSel) && notamAbove(n,elev,alt)!==true).length;
+      pop.setContent(`${btn}<div class="small" style="margin-top:8px">${esc(sum)}</div>${nOn?`<div class="small" style="margin-top:4px;color:#e8368f;font-weight:700">${esc(t("nSum",{n:nOn}))}</div>`:""}<details class="popdet"><summary>${esc(t("showDetails"))}</summary>${zonesListHtml(zs,elev)}${extrasHtml(ex,elev,tsSel)}</details>`);
     }catch(err){ pop.setContent(`${btn}<div class="err small" style="margin-top:6px">${esc(t("mapQueryErr"))}</div>`); }
   });
   map.on("moveend", loadMapZones);
@@ -940,14 +1167,35 @@ window.pickPoint = async (lat,lon)=>{
   setLoc({lat, lon, name});
   switchTab("resumen");
 };
+/* NOTAM vigentes en los próximos 7 días y zonas medioambientales, en la vista actual del mapa */
+async function loadMapExtras(z, b, sig){
+  const env = encodeURIComponent(JSON.stringify({xmin:b.getWest(),ymin:b.getSouth(),xmax:b.getEast(),ymax:b.getNorth(),spatialReference:{wkid:4326}}));
+  const off = (b.getEast()-b.getWest())/map.getSize().x;
+  const q = (base,f) => `${base}/query?geometry=${env}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=${f}&returnGeometry=true&outSR=4326&maxAllowableOffset=${off}&resultRecordCount=2000&f=geojson`;
+  try{
+    const j = await (await fetch(q(NOTAM_URL,"notamId,itemB,itemC"),{signal:sig})).json();
+    if (sig.aborted) return;
+    const now=Date.now(), wk=now+7*86400000;
+    notamLayer.addData({type:"FeatureCollection",features:(j.features||[]).filter(f=>{ const p=f.properties; return !isNum(p.itemC)||(p.itemC>=now && (!isNum(p.itemB)||p.itemB<=wk)); })});
+  }catch(e){}
+  if (z<9) return;
+  try{
+    for (const id of [0,1]){
+      const j = await (await fetch(q(`${ENP_URL}/${id}`,"SITENAME"),{signal:sig})).json();
+      if (sig.aborted) return;
+      envLayer.addData(j);
+    }
+  }catch(e){}
+}
 async function loadMapZones(){
   if (!map) return;
   if (zoneCtl) zoneCtl.abort();
   zoneCtl = new AbortController(); const sig=zoneCtl.signal;
   const z=map.getZoom(), b=map.getBounds();
   const layers = z>=12 ? [2,0] : z>=8 ? [2] : [];
-  zoneLayer.clearLayers();
+  zoneLayer.clearLayers(); notamLayer.clearLayers(); envLayer.clearLayers();
   if (!layers.length){ $("#mapNote").textContent=t("mapZoomIn"); return; }
+  loadMapExtras(z, b, sig);
   $("#mapNote").textContent=t("mapLoading");
   const env = JSON.stringify({xmin:b.getWest(),ymin:b.getSouth(),xmax:b.getEast(),ymax:b.getNorth(),spatialReference:{wkid:4326}});
   const off = (b.getEast()-b.getWest())/map.getSize().x; // ~1 píxel en grados

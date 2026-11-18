@@ -10,11 +10,14 @@ Previsión meteorológica gratuita para volar drones y aeromodelos: sin publicid
 
 - **Veredicto rápido**: para cada hora dice si hay buenas condiciones, si hay que ir con precaución o si es mejor no volar. Lo calcula según los límites del aparato que elijas.
 - **Viento por altura**: muestra el viento en superficie y a las alturas que configures para cada aparato, hasta 2000 m sobre el suelo. Las alturas altas se calculan con los niveles de presión del modelo.
-- **Rachas, lluvia, nubes, visibilidad, temperatura y tormentas**, hora a hora, durante 7 días.
+- **Fuerza Beaufort** junto a cada valor de viento.
+- **Rachas, lluvia, nubes, visibilidad, temperatura, humedad, presión, índice UV, calidad del aire y tormentas**, hora a hora, durante 7 días.
 - **Comparación de modelos**: enfrenta ECMWF, ICON y GFS para ver si la previsión es fiable.
 - **Índice Kp** de actividad geomagnética.
 - **Satélites visibles** de GPS, Galileo, GLONASS y BeiDou, con una elevación mínima configurable.
 - **Mapa de zonas UAS de ENAIRE**: indica si un punto está en una zona restringida a tu altura de vuelo.
+- **NOTAM de ENAIRE**: los muestra en el mapa y avisa de los que están vigentes a la hora y en el punto elegidos.
+- **Zonas medioambientales** (espacios naturales protegidos y ZEPA), a título informativo.
 - **Mapas del IGN**: mapa base y ortofoto.
 - **Favoritos con nombre** y aparatos con sus propios límites. Todo se guarda solo en tu navegador.
 - **Enlace para compartir** que abre la app directamente en un sitio.
@@ -30,12 +33,13 @@ La app es una única página web estática. No tiene servidor propio, no usa cue
 - Previsión: [Open-Meteo](https://open-meteo.com/) (CC BY 4.0)
 - Índice Kp: [NOAA SWPC](https://www.swpc.noaa.gov/)
 - Órbitas de satélites: [CelesTrak](https://celestrak.org/)
-- Zonas UAS: [ENAIRE Drones](https://drones.enaire.es/)
+- Zonas UAS, NOTAM y zonas medioambientales: [ENAIRE Drones](https://drones.enaire.es/)
+- Calidad del aire: [Open-Meteo Air Quality](https://open-meteo.com/en/docs/air-quality-api) (CAMS)
 - Mapa y ortofoto: © [IGN](https://www.ign.es/); geocodificación: © [OpenStreetMap](https://www.openstreetmap.org/copyright)
 
 ## Aviso
 
-Es una herramienta informativa. La referencia oficial de zonas es ENAIRE Drones, y la app no incluye zonas medioambientales. La decisión de volar y el cumplimiento de la normativa son responsabilidad del piloto.
+Es una herramienta informativa. La referencia oficial de zonas y NOTAM es ENAIRE Drones. La decisión de volar y el cumplimiento de la normativa son responsabilidad del piloto.
 
 ---
 
@@ -48,11 +52,12 @@ Free weather forecast for flying drones and model aircraft, with no ads and no s
 Features:
 - A go / caution / no-go verdict for each hour, based on your aircraft's limits.
 - Wind at configurable heights up to 2000 m above ground.
-- Gusts, rain, clouds, visibility, temperature and storms over a 7-day forecast.
+- Beaufort force next to every wind value.
+- Gusts, rain, clouds, visibility, temperature, humidity, pressure, UV index, air quality and storms over a 7-day forecast.
 - Model comparison across ECMWF, ICON and GFS.
 - Kp index.
 - Visible GNSS satellites.
-- Spanish UAS zones from ENAIRE.
+- Spanish UAS zones, NOTAM and environmental areas from ENAIRE.
 - IGN maps.
 - Named favourites.
 - Shareable links.
