@@ -108,6 +108,16 @@ footer a{color:inherit}
 a{color:var(--accent)}
 .leaflet-popup-content{font-size:13px;max-height:260px;overflow:auto}
 #btnFull{display:flex;align-items:center;padding:6px 8px}
+/* ===================== v2.1 ===================== */
+.banner{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));color:var(--text);border-radius:14px;padding:10px 12px;margin-bottom:12px}
+.banner .row{gap:8px}
+.banner .btn{padding:7px 14px}
+.legal p{margin:0 0 8px} .legal ul{margin:0 0 4px;padding-left:18px} .legal li{margin:2px 0}
+#dlgLegal .in{padding:18px} #dlgLegal h3{margin:0 0 8px;font-size:18px}
+.radarchk{white-space:nowrap}
+.radarctl{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.rbtn{border:1px solid var(--line);background:var(--card2);color:var(--text);border-radius:8px;width:30px;height:30px;font-size:16px;line-height:1;cursor:pointer}
+.rbtn:disabled{opacity:.35}
 /* ===================== Tema v2 ===================== */
 :root{
   --bg:#eef2f6; --card:#ffffff; --card2:#f6f8fb; --text:#0f1b29; --muted:#5d6b7b; --line:#dfe6ee;
@@ -224,6 +234,8 @@ footer .fb a{border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
   #tab-mapa .legend span{font-size:11.5px;margin-right:8px;gap:4px}
   #tab-mapa .legend i{width:11px;height:11px}
   #baseSel{padding:2px 6px;font-size:13px}
+  #tab-mapa .card > .row > .row{flex-wrap:nowrap;gap:6px;flex:none}
+  .radarchk{font-size:12.5px!important} .rbtn{width:26px;height:26px} #rTime{font-size:11.5px}
   #map{height:calc(100vh - 108px);height:calc(100dvh - 108px);min-height:200px;border-radius:8px}
   #mapNote{margin-top:3px!important;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
@@ -250,6 +262,7 @@ footer .fb a{border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
 </header>
 
 <main>
+  <div id="locBanner" class="banner hidden"><span id="locBannerTxt"></span><div class="row"><button class="btn" id="lbYes" data-i18n="useIt">Usar</button><button class="btn ghost" id="lbNo" data-i18n="no">No</button></div></div>
   <!-- AHORA -->
   <section id="tab-resumen">
     <div class="card" id="welcome">
@@ -318,6 +331,8 @@ footer .fb a{border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
         </div>
         <div class="row">
           <select id="baseSel"><option value="ign" data-i18n="baseIgn">Mapa (IGN)</option><option value="pnoa" data-i18n="basePnoa">Ortofoto (IGN)</option><option value="osm">OpenStreetMap</option></select>
+          <label class="chk radarchk"><input type="checkbox" id="radarChk"> <span data-i18n="radar">Radar de lluvia</span></label>
+          <span id="radarCtl" class="radarctl hidden"><button class="rbtn" id="rPrev" aria-label="-10 min">‹</button><span id="rTime" class="small"></span><button class="rbtn" id="rNext" aria-label="+10 min">›</button></span>
         </div>
       </div>
       <div id="map"></div>
@@ -376,11 +391,20 @@ footer .fb a{border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
       <p class="small" data-i18n="fullNote">Para usarla siempre sin la barra de direcciones, instálala: en el menú del navegador elige «Añadir a pantalla de inicio» o «Instalar app» y ábrela desde el icono que aparece. Mientras tanto, el botón de pantalla completa de la cabecera la activa al momento.</p>
       <button class="btn hidden" id="installBtn" data-i18n="installBtn">Instalar Meteo UAV</button>
     </div>
+    <div class="card" id="legalCard">
+      <h2 data-i18n="legalT">Aviso legal y fuentes</h2>
+      <div class="small legal" data-i18n-html="legalHtml"></div>
+    </div>
   </section>
 </main>
 
 <footer data-i18n-html="footer"></footer>
 
+<dialog id="dlgLegal"><div class="in">
+  <h3 data-i18n="legalWelcomeT">Antes de empezar</h3>
+  <p class="small" data-i18n="legalShort">Meteo UAV es una herramienta gratuita y solo informativa. Los datos vienen de servicios de terceros y pueden tener errores o retrasos. La decisión de volar y el cumplimiento de la normativa son responsabilidad tuya como piloto: comprueba siempre las zonas y los NOTAM en ENAIRE Drones.</p>
+  <div class="row" style="gap:8px;margin-top:12px"><button class="btn" id="legalOk" data-i18n="understood">Entendido</button><button class="btn ghost" id="legalMore" data-i18n="legalMore">Ver aviso completo</button></div>
+</div></dialog>
 <dialog id="dlgLoc">
   <div class="dlg">
     <h3 style="margin-top:0" data-i18n="location">Ubicación</h3>
@@ -406,7 +430,7 @@ footer .fb a{border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
 <script>
 "use strict";
-const VERSION = "2.0";
+const VERSION = "2.1";
 const droneSvg = s => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="5" cy="5" r="3"/><circle cx="19" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><path d="M7.2 7.2l2.8 2.8M16.8 7.2L14 10M7.2 16.8L10 14M16.8 16.8L14 14"/><rect x="9.5" y="9.5" width="5" height="5" rx="1.2" fill="currentColor"/></svg>`;
 /* ============ utilidades ============ */
 const $ = s => document.querySelector(s);
@@ -440,7 +464,7 @@ es:{
   satNote:"Marca las constelaciones que usa tu receptor. Se cuentan los satélites por encima de esa elevación (sin tener en cuenta edificios ni montes). GPS y GLONASS usan las listas de satélites operativos de CelesTrak; las de Galileo y BeiDou pueden incluir satélites que no estén en servicio, así que esos recuentos son aproximados.",
   aircraftLimits:"Aparatos y límites", aircraftNote:"Los valores de ejemplo son orientativos: ajústalos a tu aparato y a tu experiencia. Se guardan solo en este navegador.",
   addAircraft:"+ Añadir aparato", share:"Compartir", shareNote:"Copia un enlace que abre la app directamente en la ubicación actual.", shareBtn:"Copiar enlace a este sitio", fullscreen:"Pantalla completa", fullEnter:"Pantalla completa", fullExit:"Salir de pantalla completa", fullFail:"Este navegador no permite la pantalla completa.", fullNote:"Para usarla siempre sin la barra de direcciones, instálala: en el menú del navegador elige «Añadir a pantalla de inicio» o «Instalar app» y ábrela desde el icono que aparece. Mientras tanto, el botón de pantalla completa de la cabecera la activa al momento.", installBtn:"Instalar Meteo UAV",
-  footer:'<span class="fb"><a href="https://github.com/piticho/meteo-uav" target="_blank" rel="noopener">⭐ Dale una estrella en GitHub</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSdbKKGQpp95phzWRvtR1RsX-bzu9wl9WQBLEYXG8_vVTcPxWw/viewform" target="_blank" rel="noopener">💬 Envía tu opinión</a></span>Meteo UAV v{v} · Fuentes: previsión <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0) · índice Kp <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA SWPC</a> · órbitas <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a> · zonas UAS <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> · mapa y ortofoto © <a href="https://www.ign.es/" target="_blank" rel="noopener">IGN</a>, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Herramienta informativa: la decisión de volar y el cumplimiento de la normativa son responsabilidad del piloto.',
+  footer:'<span class="fb"><a href="https://github.com/piticho/meteo-uav" target="_blank" rel="noopener">⭐ Dale una estrella en GitHub</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSdbKKGQpp95phzWRvtR1RsX-bzu9wl9WQBLEYXG8_vVTcPxWw/viewform" target="_blank" rel="noopener">💬 Envía tu opinión</a></span>Meteo UAV v{v} · <a href="#" class="legalLink">Aviso legal y fuentes</a> · Fuentes: previsión <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0) · índice Kp <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA SWPC</a> · órbitas <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a> · zonas UAS <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> · mapa y ortofoto © <a href="https://www.ign.es/" target="_blank" rel="noopener">IGN</a>, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Herramienta informativa: la decisión de volar y el cumplimiento de la normativa son responsabilidad del piloto.',
   location:"Ubicación", searchPh:"Pueblo, ciudad o lugar…", search:"Buscar", dMyPos:"📡 Mi posición", dMap:"🗺 Elegir en el mapa", dFav:"☆ Guardar actual", favorites:"Favoritos", close:"Cerrar",
   // dinámicos
   loading:"Cargando datos…", queryingEnaire:"Consultando ENAIRE…", calcSats:"Calculando satélites…", now:"Ahora",
@@ -505,7 +529,7 @@ en:{
   satNote:"Tick the constellations your receiver uses. Satellites above that elevation are counted (buildings and hills are not taken into account). GPS and GLONASS use CelesTrak's operational lists; the Galileo and BeiDou lists may include satellites that are not in service, so those counts are approximate.",
   aircraftLimits:"Aircraft and limits", aircraftNote:"The example values are only a starting point: adjust them to your aircraft and your experience. They are stored in this browser only.",
   addAircraft:"+ Add aircraft", share:"Share", shareNote:"Copy a link that opens the app directly at the current location.", shareBtn:"Copy link to this place", fullscreen:"Full screen", fullEnter:"Full screen", fullExit:"Exit full screen", fullFail:"This browser doesn't allow full screen.", fullNote:"To always use it without the address bar, install it: in the browser menu choose “Add to Home screen” or “Install app” and open it from the new icon. Meanwhile, the full-screen button in the header switches it on right away.", installBtn:"Install Meteo UAV",
-  footer:'<span class="fb"><a href="https://github.com/piticho/meteo-uav" target="_blank" rel="noopener">⭐ Star it on GitHub</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSdbKKGQpp95phzWRvtR1RsX-bzu9wl9WQBLEYXG8_vVTcPxWw/viewform" target="_blank" rel="noopener">💬 Send feedback</a></span>Meteo UAV v{v} · Sources: forecast <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0) · Kp index <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA SWPC</a> · orbits <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a> · UAS zones <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> · map and imagery © <a href="https://www.ign.es/" target="_blank" rel="noopener">IGN</a>, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Information tool: the decision to fly and compliance with the rules are the pilot\'s responsibility.',
+  footer:'<span class="fb"><a href="https://github.com/piticho/meteo-uav" target="_blank" rel="noopener">⭐ Star it on GitHub</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSdbKKGQpp95phzWRvtR1RsX-bzu9wl9WQBLEYXG8_vVTcPxWw/viewform" target="_blank" rel="noopener">💬 Send feedback</a></span>Meteo UAV v{v} · <a href="#" class="legalLink">Legal notice and sources</a> · Sources: forecast <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0) · Kp index <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA SWPC</a> · orbits <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a> · UAS zones <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE</a> · map and imagery © <a href="https://www.ign.es/" target="_blank" rel="noopener">IGN</a>, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Information tool: the decision to fly and compliance with the rules are the pilot\'s responsibility.',
   location:"Location", searchPh:"Town, city or place…", search:"Search", dMyPos:"📡 My position", dMap:"🗺 Pick on the map", dFav:"☆ Save current", favorites:"Favourites", close:"Close",
   loading:"Loading data…", queryingEnaire:"Querying ENAIRE…", calcSats:"Calculating satellites…", now:"Now",
   vGo:"Good conditions", vWarn:"Caution", vNogo:"Better not fly", allWithin:"Everything within the limits of “{p}”.",
@@ -552,6 +576,11 @@ en:{
 }};
 /* ---- textos v2 ---- */
 Object.assign(I18N.es,{
+  legalT:"Aviso legal y fuentes", legalWelcomeT:"Antes de empezar", understood:"Entendido", legalMore:"Ver aviso completo",
+  legalShort:"Meteo UAV es una herramienta gratuita y solo informativa. Los datos vienen de servicios de terceros y pueden tener errores o retrasos. La decisión de volar y el cumplimiento de la normativa son responsabilidad tuya como piloto: comprueba siempre las zonas y los NOTAM en ENAIRE Drones.",
+  legalHtml:'<p><b>Aviso</b></p><p>Meteo UAV es una herramienta gratuita y meramente informativa. Los datos proceden de servicios de terceros y pueden contener errores, retrasos o diferencias con la realidad. El autor no garantiza su exactitud ni su disponibilidad, y no se hace responsable de las decisiones que se tomen a partir de ellos ni de sus consecuencias.</p><p>La decisión de volar, la comprobación de las zonas y los NOTAM en las fuentes oficiales y el cumplimiento de la normativa vigente son responsabilidad exclusiva del piloto. La referencia oficial de zonas y NOTAM es <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE Drones</a>.</p><p><b>Fuentes de datos</b></p><ul><li>Previsión meteorológica y calidad del aire: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0)</li><li>Índice Kp: <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA Space Weather Prediction Center</a></li><li>Órbitas de satélites: <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a></li><li>Zonas UAS, NOTAM y zonas medioambientales: <a href="https://www.enaire.es/" target="_blank" rel="noopener">ENAIRE</a></li><li>Radar de lluvia: <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">Weather data by RainViewer</a></li><li>Mapas: <a href="https://www.ign.es/" target="_blank" rel="noopener">Instituto Geográfico Nacional (IGN)</a> y <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></li></ul>',
+  useIt:"Usar", no:"No", movedQ:"Estás a {d} km de «{from}». ¿Usar {to}?", movedHere:"tu ubicación actual",
+  radar:"Radar de lluvia", radarErr:"No se pudo cargar el radar de lluvia.", radarAgo:"{t} · hace {m} min",
   bft:"Fuerza {n} Beaufort", tHum:"Humedad", tPress:"Presión", tUv:"Índice UV", tAqi:"Calidad del aire",
   dew:"punto de rocío {d} °C", fogRisk:"Riesgo de niebla o condensación", humOk:"Sin condensación",
   pUp:"subiendo", pDown:"bajando", pFlat:"estable", pTrend:"a nivel del mar · {t}",
@@ -567,6 +596,11 @@ Object.assign(I18N.es,{
   stOk:"dentro de límites", stMeh:"cerca del límite", stBad:"fuera de límites"
 });
 Object.assign(I18N.en,{
+  legalT:"Legal notice and sources", legalWelcomeT:"Before you start", understood:"Got it", legalMore:"Read the full notice",
+  legalShort:"Meteo UAV is a free tool for information only. Its data comes from third-party services and may contain errors or delays. The decision to fly and complying with the regulations are your responsibility as the pilot: always check zones and NOTAM in ENAIRE Drones.",
+  legalHtml:'<p><b>Notice</b></p><p>Meteo UAV is a free tool for information only. Its data comes from third-party services and may contain errors, delays or differences from reality. The author does not guarantee its accuracy or availability, and accepts no responsibility for decisions made based on it or their consequences.</p><p>The decision to fly, checking zones and NOTAM in the official sources, and complying with the regulations in force are solely the pilot\'s responsibility. The official reference for zones and NOTAM in Spain is <a href="https://drones.enaire.es/" target="_blank" rel="noopener">ENAIRE Drones</a>.</p><p><b>Data sources</b></p><ul><li>Weather forecast and air quality: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0)</li><li>Kp index: <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA Space Weather Prediction Center</a></li><li>Satellite orbits: <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a></li><li>UAS zones, NOTAM and environmental areas: <a href="https://www.enaire.es/" target="_blank" rel="noopener">ENAIRE</a></li><li>Rain radar: <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">Weather data by RainViewer</a></li><li>Maps: <a href="https://www.ign.es/" target="_blank" rel="noopener">Instituto Geográfico Nacional (IGN)</a> and <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></li></ul>',
+  useIt:"Use it", no:"No", movedQ:"You are {d} km from “{from}”. Use {to}?", movedHere:"your current location",
+  radar:"Rain radar", radarErr:"Couldn't load the rain radar.", radarAgo:"{t} · {m} min ago",
   bft:"Beaufort force {n}", tHum:"Humidity", tPress:"Pressure", tUv:"UV index", tAqi:"Air quality",
   dew:"dew point {d} °C", fogRisk:"Fog or condensation risk", humOk:"No condensation",
   pUp:"rising", pDown:"falling", pFlat:"steady", pTrend:"sea level · {t}",
@@ -1107,6 +1141,50 @@ function extrasHtml(x, elev, ts){
   }
   return html;
 }
+/* ---- Radar de lluvia (RainViewer: últimas ~2 h cada 10 min; su plan gratuito llega a zoom 7,
+   así que al acercarse se amplía la imagen de zoom 7) ---- */
+let radarLayer=null, radarFrames=[], radarIdx=0, radarHost="";
+async function radarOn(){
+  try{
+    const j=await (await fetch("https://api.rainviewer.com/public/weather-maps.json")).json();
+    radarHost=j.host; radarFrames=(j.radar&&j.radar.past)||[];
+    if (!radarFrames.length) throw new Error("empty");
+    radarIdx=radarFrames.length-1; showRadar(); $("#radarCtl").classList.remove("hidden");
+  }catch(e){ toast(t("radarErr")); $("#radarChk").checked=false; LS.set("radar",false); }
+}
+function showRadar(){
+  const f=radarFrames[radarIdx]; if (!f || !map) return;
+  const url=`${radarHost}${f.path}/256/{z}/{x}/{y}/2/1_1.png`;
+  if (radarLayer) radarLayer.setUrl(url);
+  else radarLayer=L.tileLayer(url,{opacity:.7,maxNativeZoom:7,maxZoom:19,zIndex:5,attribution:'<a href="https://www.rainviewer.com/" target="_blank" rel="noopener">Weather data by RainViewer</a>'}).addTo(map);
+  const hhmm=new Intl.DateTimeFormat(LOCALE(),{hour:"2-digit",minute:"2-digit"}).format(new Date(f.time*1000));
+  $("#rTime").textContent=t("radarAgo",{t:hhmm,m:Math.max(0,Math.round((Date.now()/1000-f.time)/60))});
+  $("#rPrev").disabled=radarIdx<=0; $("#rNext").disabled=radarIdx>=radarFrames.length-1;
+}
+function radarOff(){ if (radarLayer && map){ map.removeLayer(radarLayer); } radarLayer=null; $("#radarCtl").classList.add("hidden"); }
+/* ---- ¿Estás en otro sitio? Solo si el permiso de ubicación ya está concedido (no pregunta nada) ---- */
+async function checkMoved(){
+  if (!S.loc || !navigator.geolocation || !navigator.permissions) return;
+  try{ const st=await navigator.permissions.query({name:"geolocation"}); if (st.state!=="granted") return; }catch(e){ return; }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    if (!S.loc) return;
+    const lat=+pos.coords.latitude.toFixed(5), lon=+pos.coords.longitude.toFixed(5), acc=Math.round(pos.coords.accuracy||0);
+    const d=distM(lat,lon,S.loc.lat,S.loc.lon);
+    if (d < Math.max(2000, acc*1.5)) return;
+    const fav=favNear(lat,lon,Math.max(150,Math.min(acc,1000)));
+    const name=fav?fav.name:t("myPos");
+    const km=d>=10000?Math.round(d/1000):(d/1000).toFixed(1);
+    $("#locBannerTxt").textContent=t("movedQ",{d:km,from:displayName(S.loc),to:fav?"«"+fav.name+"»":t("movedHere")});
+    $("#locBanner").classList.remove("hidden");
+    $("#lbYes").onclick=()=>{ $("#locBanner").classList.add("hidden"); setLoc({lat,lon,acc,name}); };
+    $("#lbNo").onclick=()=>$("#locBanner").classList.add("hidden");
+  }, ()=>{}, {enableHighAccuracy:false,timeout:20000,maximumAge:300000});
+}
+/* ---- Aviso legal ---- */
+function openLegal(){
+  if ($("#dlgLegal").open) $("#dlgLegal").close();
+  switchTab("ajustes"); setTimeout(()=>$("#legalCard").scrollIntoView({behavior:"smooth",block:"start"}),60);
+}
 /* ============ mapa ============ */
 let map=null, marker=null, zoneLayer=null, notamLayer=null, envLayer=null, zoneCtl=null, bases={};
 /* Centra el mapa en la ubicación elegida cuando esta ha cambiado desde la última vez que se centró
@@ -1136,6 +1214,7 @@ function initMap(){
   envLayer = L.geoJSON(null,{interactive:false, style:{color:"#2f9e44",weight:1,fillOpacity:.06}});
   notamLayer = L.geoJSON(null,{interactive:false, style:{color:"#e8368f",weight:2,dashArray:"6 4",fillOpacity:.12}});
   envLayer.addTo(map); zoneLayer.bringToFront(); notamLayer.addTo(map);
+  if ($("#radarChk").checked) radarOn();
   // Al tocar el mapa: «Volar aquí» arriba y un resumen corto; el detalle de las zonas va plegado.
   map.on("click", async e=>{
     const {lat,lng}=e.latlng, btn=`<button class="btn" onclick="pickPoint(${lat},${lng})">${esc(t("flyHere"))}</button>`;
@@ -1364,7 +1443,15 @@ function boot(){
   $("#dFav").onclick=()=>{ if(!S.loc) return toast(t("needLoc"));
     favForm(S.loc.lat, S.loc.lon, S.loc.name, t("saveTitle")); };
   $("#profSel").onchange=e=>{ S.active=e.target.value; LS.set("active",S.active); renderAll(); };
-  $("#onlyDay").onchange=renderHours;
+  $("#onlyDay").checked=LS.get("onlyDay",true);
+  $("#onlyDay").onchange=e=>{ LS.set("onlyDay",e.target.checked); renderHours(); };
+  $("#radarChk").checked=LS.get("radar",false);
+  $("#radarChk").onchange=e=>{ LS.set("radar",e.target.checked); if (!map) return; e.target.checked ? radarOn() : radarOff(); };
+  $("#rPrev").onclick=()=>{ if (radarIdx>0){ radarIdx--; showRadar(); } };
+  $("#rNext").onclick=()=>{ if (radarIdx<radarFrames.length-1){ radarIdx++; showRadar(); } };
+  document.addEventListener("click",e=>{ if (e.target.closest(".legalLink")){ e.preventDefault(); openLegal(); } });
+  $("#legalOk").onclick=()=>{ LS.set("legalOk",1); $("#dlgLegal").close(); if (S.loc) checkMoved(); };
+  $("#legalMore").onclick=()=>{ LS.set("legalOk",1); openLegal(); };
   $("#hoursTbl").onclick=e=>{ const tr=e.target.closest("tr[data-i]"); if(!tr) return; S.sel=+tr.dataset.i; renderAll(); switchTab("resumen"); };
   $("#setModel").value=S.model; $("#setUnit").value=S.unit; $("#setMask").value=S.mask;
   $("#setModel").onchange=e=>{ S.model=e.target.value; LS.set("model",S.model); loadAll(); };
@@ -1383,6 +1470,7 @@ function boot(){
   };
   // ubicación desde el enlace (?lat=&lon=&n=)
   const qs=new URLSearchParams(location.search);
+  const fromLink = qs.has("lat") && qs.has("lon");
   if (qs.has("lat") && qs.has("lon") && isFinite(+qs.get("lat")) && isFinite(+qs.get("lon"))){
     S.loc={lat:+qs.get("lat"), lon:+qs.get("lon"), name:qs.get("n")||coordsName(qs.get("lat"),qs.get("lon"))}; LS.set("loc",S.loc);
   }
@@ -1391,6 +1479,8 @@ function boot(){
   applyStatic(); renderFavs(); renderProfSel();
   $("#mapNote").textContent = t("mapZoomIn");
   if (S.loc) loadAll();
+  if (!LS.get("legalOk",0)) $("#dlgLegal").showModal();
+  else if (S.loc && !fromLink) checkMoved();
   // refresco automático cada 30 min si la página sigue abierta
   setInterval(()=>{ if (S.loc && document.visibilityState==="visible") loadAll(); }, 30*60e3);
 }

@@ -18,9 +18,10 @@ Previsión meteorológica gratuita para volar drones y aeromodelos: sin publicid
 - **Mapa de zonas UAS de ENAIRE**: indica si un punto está en una zona restringida a tu altura de vuelo.
 - **NOTAM de ENAIRE**: los muestra en el mapa y avisa de los que están vigentes a la hora y en el punto elegidos.
 - **Zonas medioambientales** (espacios naturales protegidos y ZEPA), a título informativo.
-- **Mapas del IGN**: mapa base y ortofoto.
+- **Mapas del IGN**: mapa base y ortofoto, con **radar de lluvia** opcional (últimas 2 horas).
 - **Favoritos con nombre** y aparatos con sus propios límites. Todo se guarda solo en tu navegador.
 - **Enlace para compartir** que abre la app directamente en un sitio.
+- Si al abrirla estás lejos del último sitio usado, **te propone tu ubicación actual**.
 - Disponible en **español e inglés**, con viento en km/h, m/s o nudos.
 - **Se puede instalar como app** (en el menú del navegador, «Añadir a pantalla de inicio») y entonces se abre a pantalla completa, sin barra de direcciones.
 
@@ -35,11 +36,12 @@ La app es una única página web estática. No tiene servidor propio, no usa cue
 - Órbitas de satélites: [CelesTrak](https://celestrak.org/)
 - Zonas UAS, NOTAM y zonas medioambientales: [ENAIRE Drones](https://drones.enaire.es/)
 - Calidad del aire: [Open-Meteo Air Quality](https://open-meteo.com/en/docs/air-quality-api) (CAMS)
+- Radar de lluvia: [Weather data by RainViewer](https://www.rainviewer.com/)
 - Mapa y ortofoto: © [IGN](https://www.ign.es/); geocodificación: © [OpenStreetMap](https://www.openstreetmap.org/copyright)
 
 ## Aviso
 
-Es una herramienta informativa. La referencia oficial de zonas y NOTAM es ENAIRE Drones. La decisión de volar y el cumplimiento de la normativa son responsabilidad del piloto.
+Meteo UAV es una herramienta gratuita y meramente informativa. Los datos proceden de servicios de terceros y pueden contener errores, retrasos o diferencias con la realidad. El autor no garantiza su exactitud ni su disponibilidad, y no se hace responsable de las decisiones que se tomen a partir de ellos ni de sus consecuencias. La decisión de volar, la comprobación de las zonas y los NOTAM en las fuentes oficiales y el cumplimiento de la normativa vigente son responsabilidad exclusiva del piloto. La referencia oficial de zonas y NOTAM es [ENAIRE Drones](https://drones.enaire.es/). La decisión de volar y el cumplimiento de la normativa son responsabilidad del piloto.
 
 ---
 
@@ -58,7 +60,7 @@ Features:
 - Kp index.
 - Visible GNSS satellites.
 - Spanish UAS zones, NOTAM and environmental areas from ENAIRE.
-- IGN maps.
+- IGN maps with optional rain radar.
 - Named favourites.
 - Shareable links.
 - Installable as an app that opens full screen.
